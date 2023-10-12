@@ -101,16 +101,14 @@ async function processAnswers(selectedOptions, student) {
       }
       console.log("qeustion:", question.question_code);
       console.log("option:", option);
-      // Check if the question string is "CF1" and the option value is more than 3
+      // preparing for the suspected logic
+      const suspectedList = [];
       if (
         (question.question_code === "CF2" ||
           question.question_code === "CF3") &&
         optionValue >= 3
       ) {
-        console.log("Suspected");
-        // preparing for the suspected logic
-
-        // jnjnj;
+        suspectedList.push(3);
       }
     }
 
