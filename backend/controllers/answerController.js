@@ -108,11 +108,7 @@ async function processAnswers(selectedOptions, student) {
         optionValue >= 3
       ) {
         console.log("Suspected");
-        // Update the student in the Student model (replace 'updateStudent' with your update logic)
-        // You can access the studentId here if needed
-        // For example: const studentId = option.studentId;
-        // Update the student based on the condition
-        // await Student.updateOne({ _id: studentId }, { $set: { someField: 'updatedValue' } });
+        // preparing for the suspected logic
       }
     }
 
