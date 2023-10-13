@@ -5,8 +5,10 @@ const { protect } = require("../middleware/authMiddleware");
 const {
   getDistrict,
   setProvince,
+  searchDistricts,
 } = require("../controllers/districtController");
 
 module.exports = router;
 
 router.route("/").get(getDistrict).post(setProvince);
+router.get("/search", protect, searchDistricts);

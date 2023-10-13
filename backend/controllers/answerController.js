@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Answer = require("../models/answerModel");
 const Student = require("../models/studentModel");
 const Question = require("../models/questionModel");
+const Suspected = require("../models/suspectedModel");
 
 const getAnswers = asyncHandler(async (req, res) => {
   try {

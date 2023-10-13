@@ -1,8 +1,23 @@
 const asyncHandler = require("express-async-handler");
 const District = require("../models/districtModel");
 const paginationMiddleware = require("../middleware/paginationMiddleware");
+const searchMiddleware = require("../middleware/searchMiddleware");
 
 const getDistrict = paginationMiddleware(District);
+
+const searchMiddleware = require("../middleware/searchMiddleware");
+
+// Use the search middleware for Districts
+const searchDistrictsController = searchMiddleware(District, ["name"]);
+
+// Search districts
+const searchDistricts = asyncHandler(async (req, res) => {
+  if (res.locals.filteredResults && res.locals.filteredResults.length > 0) {
+    res.status(200).json({ districts: res.locals.filteredResults });
+  } else {
+    res.status(404).json({ error: "No matching districts found." });
+  }
+});
 
 const setProvince = asyncHandler(async (req, res) => {
   if (!req.body.gender) {
@@ -15,4 +30,4 @@ const setProvince = asyncHandler(async (req, res) => {
   res.status(200).json({ message: `Set Gender ` });
 });
 
-module.exports = { getDistrict, setProvince };
+module.exports = { getDistrict, setProvince, searchDistricts };
