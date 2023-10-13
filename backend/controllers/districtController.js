@@ -5,13 +5,12 @@ const searchMiddleware = require("../middleware/searchMiddleware");
 
 const getDistrict = paginationMiddleware(District);
 
-const searchMiddleware = require("../middleware/searchMiddleware");
-
 // Use the search middleware for Districts
 const searchDistrictsController = searchMiddleware(District, ["name"]);
 
 // Search districts
 const searchDistricts = asyncHandler(async (req, res) => {
+  console.log(res.locals.filteredResults);
   if (res.locals.filteredResults && res.locals.filteredResults.length > 0) {
     res.status(200).json({ districts: res.locals.filteredResults });
   } else {
@@ -30,4 +29,9 @@ const setProvince = asyncHandler(async (req, res) => {
   res.status(200).json({ message: `Set Gender ` });
 });
 
-module.exports = { getDistrict, setProvince, searchDistricts };
+module.exports = {
+  getDistrict,
+  setProvince,
+  searchDistrictsController,
+  searchDistricts,
+};

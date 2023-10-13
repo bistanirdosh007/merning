@@ -6,9 +6,10 @@ const {
   getDistrict,
   setProvince,
   searchDistricts,
+  searchDistrictsController,
 } = require("../controllers/districtController");
 
 module.exports = router;
 
 router.route("/").get(getDistrict).post(setProvince);
-router.get("/search", protect, searchDistricts);
+router.get("/search", searchDistrictsController, searchDistricts);
