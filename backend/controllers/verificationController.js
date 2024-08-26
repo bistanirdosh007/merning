@@ -5,7 +5,6 @@ const User = require("../models/userModel");
 const verifyUser = asyncHandler(async (req, res) => {
   const verificationToken = req.params.token;
   const decoded = jwt.verify(verificationToken, process.env.JWT_SECRET);
-
   const updatedUser = await User.findOneAndUpdate(
     { _id: decoded.id },
     { $set: { is_activated: true } },

@@ -34,7 +34,7 @@ async function sendVerificationEmail(email, token) {
 
     // Define template variables
     const context = {
-      verificationLink: `http://localhost:5000/verify/${token}`,
+      verificationLink: `http://localhost:5000/api/verify/${token}`,
     };
 
     // Render the HTML for the email

@@ -45,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid User Data");
   }
 
-  res.json({ message: "Register User" });
+  res.json({ message: "User Registered." });
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -92,7 +92,7 @@ const getMe = asyncHandler(async (req, res) => {
 
 //gen token
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET); //, { expiresIn: "3d" });
+  return jwt.sign({ id, role }, process.env.JWT_SECRET , { expiresIn: "3m" });
 };
 
 module.exports = { registerUser, loginUser, getMe };

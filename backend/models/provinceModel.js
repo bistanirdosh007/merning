@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 
 const provinceSchema = new mongoose.Schema({
-  province_id: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  name: {
+  province_name: {
     type: String,
     required: true,
   },

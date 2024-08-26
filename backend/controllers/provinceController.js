@@ -8,14 +8,14 @@ const getProvince = asyncHandler(async (req, res) => {
 });
 
 const setProvince = asyncHandler(async (req, res) => {
-  if (!req.body.gender) {
+  if (!req.body.province_name) {
     res.status(400);
-    throw new Error("Please add a gender");
+    throw new Error("Please add a province");
   }
-  const gender = await Gender.create({
-    gender: req.body.gender,
+  const province = await Province.create({
+    province_name: req.body.province_name,
   });
-  res.status(200).json({ message: `Set Gender ` });
+  res.status(200).json({ message: `Province Set ` });
 });
 
 module.exports = { getProvince, setProvince };
