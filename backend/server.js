@@ -25,7 +25,7 @@ app.use("/api/municipalities", require("./routes/municipalityRoutes"));
 app.use("/api/schools", require("./routes/schoolRoutes"));
 app.use("/api/importFiles", require("./routes/importexcelRoutes"));
 app.use("/api/verify", require("./routes/verificationRoutes"));
-app.use("/api/reset-password", require("./routes/changePasswordRoutes"));
+app.use("/api/reset-password", require("./routes/passwordRoutes"));
 app.use("/api/uploadFiles", require("./routes/uploadRoutes"));
 app.use("/api/downloadFiles", require("./routes/downloadRoutes"));
 

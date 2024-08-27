@@ -37,7 +37,6 @@ const teacherSchema = mongoose.Schema(
 );
 
 // Create a virtual property 'age' based on 'date_of_birth'
-
 teacherSchema.virtual("age").get(function () {
   // Calculate the age based on the current date and 'date_of_birth'
   const currentDate = new Date();
@@ -52,7 +51,6 @@ teacherSchema.virtual("age").get(function () {
   ) {
     return age - 1;
   }
-
   return age;
 });
 

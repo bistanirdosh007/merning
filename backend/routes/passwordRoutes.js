@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {  changePassword } = require("../controllers/verificationController");
+const {  changePassword } = require("../controllers/passwordController");
 
 module.exports = router;
 
