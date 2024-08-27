@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
-const { sendVerificationEmail } = require("../config/mail");
+const { sendVerificationEmail, sendResetPasswordEmail  } = require("../config/mail");
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, role, contact_no } = req.body;
@@ -90,9 +90,29 @@ const getMe = asyncHandler(async (req, res) => {
   });
 });
 
+// Forgot Password Controller
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+
+    // Generate reset token
+    const resetToken = generateToken(user.id, user.role);
+
+    // Send reset password email
+    sendResetPasswordEmail(email, resetToken);
+  
+    res.status(200).json({ message: "Password reset email sent." });
+  });
+
 //gen token
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET , { expiresIn: "3m" });
 };
 
-module.exports = { registerUser, loginUser, getMe };
+module.exports = { registerUser, loginUser, getMe, forgotPassword };
