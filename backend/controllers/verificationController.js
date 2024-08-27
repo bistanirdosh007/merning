@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const bcrypt = require("bcryptjs");
 
 const verifyUser = asyncHandler(async (req, res) => {
   const verificationToken = req.params.token;
@@ -35,22 +36,25 @@ const changePassword = asyncHandler(async (req, res) => {
     throw new Error("User not found.");
   }
 
-  // Check if the old password matches
-  const isMatch = await bcrypt.compare(oldPassword, user.password);
-  if (!isMatch) {
-    res.status(400);
-    throw new Error("Old password is incorrect.");
+  if (oldPassword && newPassword) {
+    // Check if the old password matches
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      res.status(400);
+      throw new Error("Old password is incorrect.");
+    }
+    // Hash the new password
+    const salt = await bcrypt.genSalt(12);
+    const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update the password
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password changed successfully." });
+  } else {
+    throw new Error("Passwords cannot be empty");
   }
-
-  // Hash the new password
-  const salt = await bcrypt.genSalt(12);
-  const hashedNewPassword = await bcrypt.hash(newPassword, salt);
-
-  // Update the password
-  user.password = hashedNewPassword;
-  await user.save();
-
-  res.status(200).json({ message: "Password changed successfully." });
 });
 
 module.exports = { verifyUser, changePassword };

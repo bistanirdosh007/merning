@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv").config();
+const createTransporter = require("./emailTransporter"); // Adjust the path as needed
 const handlebars = require("handlebars");
 const fs = require("fs");
 
@@ -7,21 +8,7 @@ const fs = require("fs");
 async function sendVerificationEmail(email, token) {
   try {
     // Create a Nodemailer transporter using your email service provider's SMTP settings
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      port: 465, // Your SMTP port
-      secure: true, // Set to true if using SSL/TLS
-      // logger: true,
-      // debug: true,
-      secureConnection: false,
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-      tls: {
-        rejectUnauthorized: true,
-      },
-    });
+    const transporter = createTransporter()
 
     // Read the email template file
     const emailTemplateSource = fs.readFileSync(
@@ -62,18 +49,7 @@ async function sendVerificationEmail(email, token) {
 async function sendResetPasswordEmail(email, token) {
   try {
     // Create a Nodemailer transporter using your email service provider's SMTP settings
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      port: 465, // Your SMTP port
-      secure: true, // Set to true if using SSL/TLS
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-      tls: {
-        rejectUnauthorized: true,
-      },
-    });
+    const transporter = createTransporter()
 
     // Read the email template file
     const emailTemplateSource = fs.readFileSync(
