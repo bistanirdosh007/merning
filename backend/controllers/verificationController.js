@@ -22,5 +22,4 @@ const verifyUser = asyncHandler(async (req, res) => {
   res.send("Email verified successfully."); // or res.redirect('/login');
 });
 
-
 module.exports = { verifyUser };
