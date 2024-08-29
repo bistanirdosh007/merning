@@ -38,8 +38,9 @@ async function sendEmail(email, subject, templatePath, context) {
 }
 
 // Helper function to send a verification email
-async function sendVerificationEmail(email, token) {
+async function sendVerificationEmail(name, email, token) {
   const context = {
+    userName: name,
     verificationLink: `http://localhost:5000/api/verify/${token}`,
   };
   await sendEmail(email, "Account Verification", "backend/templates/verificationEmail.hbs", context);

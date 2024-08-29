@@ -32,7 +32,7 @@ const registerUser = asyncHandler(async (req, res) => {
   });
   const verificationToken = generateToken(user.id, user.role);
   // Send a verification email
-  sendVerificationEmail(email, verificationToken);
+  sendVerificationEmail(name, email, verificationToken);
 
   if (user) {
     res.status(201).json({
